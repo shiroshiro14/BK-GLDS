@@ -7,36 +7,37 @@ from firebase_admin import db
 from Adafruit_IO import MQTTClient 
 from datetime import date
 
+#Open JSON file
+speaker = open('./JSON-file/bk-iot-speaker.JSON')
+gas = open('./JSON-file/bk-iot-gas.JSON')
+relay = open('./JSON-file/bk-iot-relay.JSON')
+bk_speaker = json.load(speaker)
+bk_gas = json.load(gas)
+bk_relay = json.load(relay)
+
 
 #SYSTEM DATE AND TIME
 today = date.today()
 strTextToday = today.strftime("%B %d %Y")
 print(strTextToday)
 
+#firebase accessing
 cred_obj = firebase_admin.credentials.Certificate('firebase_admin_key.JSON')
 default_app = firebase_admin.initialize_app(cred_obj, {'databaseURL': 'https://glds-42060-default-rtdb.asia-southeast1.firebasedatabase.app/'})
-ref_speaker = db.reference('/-N-Wl45v3oVXQ_q0NdsA')
-ref_gas = db.reference('/-N-Wl47YbSfz-gp4uca4')
-ref_relay = db.reference('/-N-Wl49AQipsuIOPTjoh')
+ref_speaker = db.reference(bk_speaker['id'])
+ref_speaker_data = db.reference(bk_speaker['id'] + 'data')
+ref_gas = db.reference(bk_gas['id'])
+ref_relay = db.reference(bk_relay['id'])
 
 AIO_FEED_ID = "glds.bk-iot-speaker"
 AIO_USERNAME = "shiroshiro14"
-AIO_KEY = "aio_aMhD048trfCmWmlaag2BEav3xwTr"
+AIO_KEY = "aio_BZOh93rOGiBEpjCe2v1Tw4etX6F4"
 
-speaker = open('bk-iot-speaker.JSON')
-gas = open('bk-iot-gas.JSON')
-relay = open('bk-iot-relay.JSON')
-#temp = open('bk-iot-temp-humid.JSON')
-
-bk_speaker = json.load(speaker)
-bk_gas = json.load(gas)
-bk_relay = json.load(relay)
-#bk_temp = json.load(temp)
 
 ref_speaker.set(bk_speaker)
 ref_gas.set(bk_gas)
 ref_relay.set(bk_relay)
-#ref.push(bk_temp)
+
 
 def connected(client):
     print ("Ket noi thanh cong ...")
@@ -93,13 +94,17 @@ client.on_subscribe = subscribe
 client.connect ()
 client.loop_background ()
 
+
+
+
+
 while True :
     
     bk_speaker['data'] = random.randint(0,1023)
     value = bk_speaker['data']
     print("cap nhat", value)
-    client.publish("glds.bk-iot-speaker", value)
-    ref_speaker.set(bk_speaker)
+    client.publish("glds.bk-iot-speaker", str(value))
+    ref_speaker_data.set(bk_speaker)
     time.sleep(5)
 
 
