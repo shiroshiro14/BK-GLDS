@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/multi/tmep/gas-leak-detector/GLDS/app/src/main/res/layout/activity_main.xml" value="0.17857142857142858" />
+        <entry key="..\:/Users/thanh/AndroidStudioProjects/GLDS/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/multi/gas-leak-detector/GLDS/app/src/main/res/layout/activity_graph_view.xml" value="0.13722826086956522" />
+        <entry key="..\:/multi/gas-leak-detector/GLDS/app/src/main/res/layout/activity_login.xml" value="0.18" />
+        <entry key="..\:/multi/gas-leak-detector/GLDS/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/multi/gas-leak-detector/GLDS/app/src/main/res/layout/activity_status_panel.xml" value="0.14437689969604864" />
       </map>
     </option>
   </component>
