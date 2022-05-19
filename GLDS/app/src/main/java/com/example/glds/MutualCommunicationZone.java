@@ -1,2 +1,5 @@
-package com.example.glds;public class MutualCommunicationZone {
+package com.example.glds;
+
+public class MutualCommunicationZone {
+
 }
