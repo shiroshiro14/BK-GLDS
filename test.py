@@ -31,7 +31,7 @@ ref_relay = db.reference(bk_relay['id'])
 
 AIO_FEED_ID = "glds.bk-iot-speaker"
 AIO_USERNAME = "shiroshiro14"
-AIO_KEY = "aio_BZOh93rOGiBEpjCe2v1Tw4etX6F4"
+AIO_KEY = "aio_aUYx93Bao6ABt02fPkxeNtOtzce6"
 
 
 ref_speaker.set(bk_speaker)

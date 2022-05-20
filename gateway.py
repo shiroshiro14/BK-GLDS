@@ -23,13 +23,17 @@ strTextToday = today.strftime("%B %d %Y")
 print(strTextToday)
 
 #Adafruit connector
-AIO_FEED_ID = "glds.bk-iot-speaker"
+AIO_FEED_ID_1 = "glds.bk-iot-gas"
+AIO_FEED_ID_2 = "glds.bk-iot-relay"
+AIO_FEED_ID_3 = "glds.glds-pressure-sensor"
 AIO_USERNAME = "shiroshiro14"
-AIO_KEY = "aio_BZOh93rOGiBEpjCe2v1Tw4etX6F4"
+AIO_KEY = "aio_aUYx93Bao6ABt02fPkxeNtOtzce6"
 
 def connected(client):
     print ("Ket noi thanh cong ...")
-    client.subscribe ( AIO_FEED_ID )
+    client.subscribe ( AIO_FEED_ID_1)
+    client.subscribe ( AIO_FEED_ID_2)
+    client.subscribe ( AIO_FEED_ID_3)
 
 def subscribe(client, userdata, mid, granted_qos):
     print("Subcribed successed!")
@@ -41,18 +45,9 @@ def disconnected(client):
 def message(client, feed_id, payload):
     print("Receiving from: " + feed_id)
     print("Recieiving data: " + payload)
-    factory.update_json(feed_id, payload)
+    
 
 def gateway_update(feed_id, value): 
-    if feed_id == 'glds.bk-iot-speaker': 
-        bk_speaker['data'] = value
-        
-    elif feed_id == 'glds.bk-iot-gas': 
-        bk_gas['data'] = value
-    
-    elif feed_id == 'glds.bk-iot-relay': 
-        bk_relay['data'] = value
-
     client.publish(feed_id,value)
 
 def firebase_init():
@@ -69,10 +64,10 @@ client.loop_background ()
 
 
 while True: 
-    gw_speaker['data'] = random.randint(0,1023)
-    value = gw_speaker['data']
-    target = gw_speaker['id']
+    gw_pressure['data'] = random.randint(200,1600)
+    value = gw_pressure['data']
+    target = gw_pressure['id']
     print("cap nhat", value)
-    client.publish("glds.bk-iot-speaker", str(value))
-    firebase_function.update_ref(target, value)
+    client.publish("AIO_FEED_ID_3", str(value))
+    firebase_function.update_ref(target, str(value))
     time.sleep(5)
